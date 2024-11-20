@@ -109,10 +109,10 @@ def write_lines(cat, file):
     file.write('\n')
 
 
-def write_dict(d, file):
+def write_dict(d, file, sum):
     i = 1
     for k, v in d.items():
-        file.write(f'{i}. {rus_cat[k]}: {v}\n')
+        file.write(f'{i}. {rus_cat[k]}: {v} ({round(v / sum * 100, 2)}%)\n')
         i += 1
         write_lines(k, file)
 
@@ -130,10 +130,10 @@ def write_diff(a, b, file):
 
 with open('result', 'w') as f:
     f.write(f'--- Расоходы: {expences_sum} ---\n\n')
-    write_dict(expences, f)
+    write_dict(expences, f, expences_sum)
     f.write('\n')
     f.write(f'--- Доходы: {incomes_sum} ---\n\n')
-    write_dict(incomes, f)
+    write_dict(incomes, f, incomes_sum)
     
     f.write('\n-----------------\n')
     f.write(f'Взял в долг: {incomes['got_debt']}\n')
